@@ -1,0 +1,27 @@
+server:
+  address: 127.0.0.1
+  port: ${LABREVIEW_API_PORT:8080}
+  servlet:
+    session:
+      cookie:
+        same-site: lax
+        http-only: true
+spring:
+  servlet:
+    multipart:
+      max-file-size: ${LABREVIEW_UPLOAD_MAX_BYTES:20971520}B
+      max-request-size: ${LABREVIEW_MULTIPART_MAX_REQUEST:22MB}
+  datasource:
+    url: jdbc:mysql://127.0.0.1:${LABREVIEW_DB_PORT:3306}/${LABREVIEW_DB_NAME:labreview}?connectionTimeZone=UTC
+    username: ${LABREVIEW_DB_USER:labreview}
+    password: ${LABREVIEW_DB_PASSWORD}
+  jackson:
+    deserialization:
+      accept-float-as-int: false
+labreview:
+  documents-dir: ${LABREVIEW_DOCUMENTS_DIR:../var/documents}
+  upload-max-bytes: ${LABREVIEW_UPLOAD_MAX_BYTES:20971520}
+  worker-token: ${LABREVIEW_WORKER_TOKEN:}
+  lease-seconds: ${LABREVIEW_LEASE_SECONDS:30}
+  username: ${LABREVIEW_USERNAME:receiver}
+  password: ${LABREVIEW_PASSWORD}

@@ -1,0 +1,12 @@
+.env
+/var/
+worker/.venv*/
+worker/.pytest_cache/
+worker/.paddle-cache/
+worker/.ruff_cache/
+**/__pycache__/
+server/target/
+web/node_modules/
+web/dist/
+web/playwright-report/
+web/test-results/

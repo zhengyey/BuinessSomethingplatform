@@ -1,0 +1,21 @@
+services:
+  mysql:
+    image: mysql:8.4
+    environment:
+      MYSQL_DATABASE: labreview
+      MYSQL_USER: ${LABREVIEW_DB_USER:?set LABREVIEW_DB_USER}
+      MYSQL_PASSWORD: ${LABREVIEW_DB_PASSWORD:?set LABREVIEW_DB_PASSWORD}
+      MYSQL_ROOT_PASSWORD: ${LABREVIEW_DB_ROOT_PASSWORD:?set LABREVIEW_DB_ROOT_PASSWORD}
+    ports:
+      - "127.0.0.1:${LABREVIEW_DB_PORT:-3306}:3306"
+    volumes:
+      - mysql-data:/var/lib/mysql
+    healthcheck:
+      test: ["CMD-SHELL", "mysql --protocol=tcp -h127.0.0.1 -u\"$$MYSQL_USER\" -p\"$$MYSQL_PASSWORD\" \"$$MYSQL_DATABASE\" -e 'SELECT 1'"]
+      interval: 5s
+      timeout: 3s
+      retries: 20
+      start_period: 30s
+
+volumes:
+  mysql-data:

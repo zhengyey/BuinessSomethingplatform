@@ -1,0 +1,5 @@
+.venv/
+.venv-ocr/
+.paddle-cache/
+__pycache__/
+.pytest_cache/

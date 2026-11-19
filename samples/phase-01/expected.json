@@ -1,0 +1,37 @@
+{
+  "purchaseOrder": {
+    "file": "PO-001.pdf",
+    "orderNo": "PO-001",
+    "supplierName": "示例实验耗材供应商",
+    "orderedOn": "2026-11-17",
+    "lines": [
+      { "itemCode": "G-01", "itemName": "丁腈手套", "specification": "M 码", "unit": "箱", "orderedQty": 10 },
+      { "itemCode": "F-02", "itemName": "滤芯", "specification": "10 英寸", "unit": "盒", "orderedQty": 5 }
+    ]
+  },
+  "deliveries": [
+    {
+      "file": "DN-001.jpg",
+      "deliveryNoteNo": "DN-001",
+      "receivedOn": "2026-11-18",
+      "lines": [
+        { "itemCode": "G-01", "specification": "M 码", "unit": "箱", "deliveredQty": 6, "printedAcceptedQty": null, "acceptedQty": 5, "note": "短 1 箱" }
+      ]
+    },
+    {
+      "file": "DN-002.pdf",
+      "deliveryNoteNo": "DN-002",
+      "receivedOn": "2026-11-19",
+      "lines": [
+        { "itemCode": "G-01", "specification": "M 码", "unit": "箱", "deliveredQty": 5, "printedAcceptedQty": 5, "acceptedQty": 5 },
+        { "itemCode": "F-02", "specification": "10 英寸", "unit": "盒", "deliveredQty": 3, "printedAcceptedQty": 3, "acceptedQty": 3 }
+      ]
+    }
+  ],
+  "checkpoints": [
+    { "after": "PO-001", "status": "PENDING", "lines": { "G-01": { "acceptedQty": 0, "remainingQty": 10 }, "F-02": { "acceptedQty": 0, "remainingQty": 5 } } },
+    { "after": "DN-001", "status": "PARTIAL", "lines": { "G-01": { "acceptedQty": 5, "remainingQty": 5 }, "F-02": { "acceptedQty": 0, "remainingQty": 5 } } },
+    { "after": "DN-002", "status": "PARTIAL", "lines": { "G-01": { "acceptedQty": 10, "remainingQty": 0 }, "F-02": { "acceptedQty": 3, "remainingQty": 2 } } },
+    { "after": "独立用例补收滤芯 2 盒", "status": "COMPLETE", "lines": { "G-01": { "acceptedQty": 10, "remainingQty": 0 }, "F-02": { "acceptedQty": 5, "remainingQty": 0 } } }
+  ]
+}

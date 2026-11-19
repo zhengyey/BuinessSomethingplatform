@@ -1,0 +1,644 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Labreview parse-result callback",
+  "description": "Application validation also checks consecutive pages, line key and page references, binding to the active task, and semantic quantity evidence.",
+  "$defs": {
+    "v1": {
+      "type": "object",
+      "required": [
+        "workerId",
+        "attemptNo",
+        "parserVersion",
+        "hints",
+        "protocolVersion",
+        "pages",
+        "candidate",
+        "sources"
+      ],
+      "properties": {
+        "workerId": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 100
+        },
+        "attemptNo": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "parserVersion": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 80
+        },
+        "hints": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 500
+          },
+          "minItems": 0,
+          "maxItems": 200
+        },
+        "protocolVersion": {
+          "const": 1
+        },
+        "pages": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": [
+              "pageNo",
+              "text",
+              "hints",
+              "status"
+            ],
+            "properties": {
+              "pageNo": {
+                "type": "integer",
+                "minimum": 1,
+                "maximum": 50
+              },
+              "text": {
+                "anyOf": [
+                  {
+                    "type": "string",
+                    "maxLength": 100000
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              },
+              "hints": {
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 500
+                },
+                "minItems": 0,
+                "maxItems": 200
+              },
+              "status": {
+                "enum": [
+                  "TEXT",
+                  "NEEDS_OCR"
+                ]
+              }
+            },
+            "additionalProperties": false
+          },
+          "minItems": 1,
+          "maxItems": 50
+        },
+        "candidate": {
+          "anyOf": [
+            {
+              "type": "object",
+              "required": [
+                "orderNo",
+                "supplierName",
+                "orderedOn",
+                "lines"
+              ],
+              "properties": {
+                "orderNo": {
+                  "anyOf": [
+                    {
+                      "type": "string",
+                      "minLength": 1,
+                      "maxLength": 64
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ]
+                },
+                "supplierName": {
+                  "anyOf": [
+                    {
+                      "type": "string",
+                      "minLength": 1,
+                      "maxLength": 120
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ]
+                },
+                "orderedOn": {
+                  "anyOf": [
+                    {
+                      "type": "string",
+                      "format": "date"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ]
+                },
+                "lines": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "required": [
+                      "itemCode",
+                      "itemName",
+                      "specification",
+                      "unit",
+                      "orderedQty"
+                    ],
+                    "properties": {
+                      "itemCode": {
+                        "anyOf": [
+                          {
+                            "type": "string",
+                            "minLength": 1,
+                            "maxLength": 64
+                          },
+                          {
+                            "type": "null"
+                          }
+                        ]
+                      },
+                      "itemName": {
+                        "anyOf": [
+                          {
+                            "type": "string",
+                            "minLength": 1,
+                            "maxLength": 120
+                          },
+                          {
+                            "type": "null"
+                          }
+                        ]
+                      },
+                      "specification": {
+                        "anyOf": [
+                          {
+                            "type": "string",
+                            "minLength": 1,
+                            "maxLength": 120
+                          },
+                          {
+                            "type": "null"
+                          }
+                        ]
+                      },
+                      "unit": {
+                        "anyOf": [
+                          {
+                            "type": "string",
+                            "minLength": 1,
+                            "maxLength": 16
+                          },
+                          {
+                            "type": "null"
+                          }
+                        ]
+                      },
+                      "orderedQty": {
+                        "anyOf": [
+                          {
+                            "type": "integer",
+                            "minimum": 1,
+                            "maximum": 2147483647
+                          },
+                          {
+                            "type": "null"
+                          }
+                        ]
+                      }
+                    },
+                    "additionalProperties": false
+                  },
+                  "minItems": 0,
+                  "maxItems": 500
+                }
+              },
+              "additionalProperties": false
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "sources": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": [
+              "field",
+              "pageNo",
+              "text",
+              "bbox"
+            ],
+            "properties": {
+              "field": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 160
+              },
+              "pageNo": {
+                "type": "integer",
+                "minimum": 1,
+                "maximum": 50
+              },
+              "text": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 1000
+              },
+              "bbox": {
+                "type": "array",
+                "items": {
+                  "type": "number"
+                },
+                "minItems": 4,
+                "maxItems": 4
+              }
+            },
+            "additionalProperties": false
+          },
+          "minItems": 0,
+          "maxItems": 3000
+        }
+      },
+      "additionalProperties": false
+    },
+    "v2": {
+      "type": "object",
+      "required": [
+        "workerId",
+        "attemptNo",
+        "parserVersion",
+        "hints",
+        "protocolVersion",
+        "documentId",
+        "pages",
+        "delivery"
+      ],
+      "properties": {
+        "workerId": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 100
+        },
+        "attemptNo": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "parserVersion": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 80
+        },
+        "hints": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 500
+          },
+          "minItems": 0,
+          "maxItems": 200
+        },
+        "protocolVersion": {
+          "const": 2
+        },
+        "documentId": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "pages": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": [
+              "pageNo",
+              "text",
+              "hints",
+              "status",
+              "width",
+              "height",
+              "rotation",
+              "methods",
+              "ocrCalls",
+              "doubaoCalls"
+            ],
+            "properties": {
+              "pageNo": {
+                "type": "integer",
+                "minimum": 1,
+                "maximum": 50
+              },
+              "text": {
+                "anyOf": [
+                  {
+                    "type": "string",
+                    "maxLength": 100000
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              },
+              "hints": {
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 500
+                },
+                "minItems": 0,
+                "maxItems": 200
+              },
+              "status": {
+                "enum": [
+                  "EXTRACTED",
+                  "REVIEW",
+                  "PAGE_FAILED"
+                ]
+              },
+              "width": {
+                "type": "number",
+                "exclusiveMinimum": 0
+              },
+              "height": {
+                "type": "number",
+                "exclusiveMinimum": 0
+              },
+              "rotation": {
+                "enum": [
+                  0,
+                  90,
+                  180,
+                  270
+                ]
+              },
+              "methods": {
+                "type": "array",
+                "items": {
+                  "enum": [
+                    "PDF_TEXT",
+                    "PADDLE_OCR",
+                    "DOUBAO"
+                  ]
+                },
+                "minItems": 0,
+                "maxItems": 3,
+                "uniqueItems": true
+              },
+              "ocrCalls": {
+                "enum": [
+                  0,
+                  1
+                ]
+              },
+              "doubaoCalls": {
+                "enum": [
+                  0,
+                  1
+                ]
+              }
+            },
+            "additionalProperties": false
+          },
+          "minItems": 1,
+          "maxItems": 50
+        },
+        "delivery": {
+          "type": "object",
+          "required": [
+            "lines",
+            "evidence"
+          ],
+          "properties": {
+            "lines": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "required": [
+                  "lineKey",
+                  "pageNo",
+                  "itemCode",
+                  "itemName",
+                  "specification",
+                  "unit",
+                  "deliveredQty",
+                  "acceptedQty",
+                  "issues"
+                ],
+                "properties": {
+                  "lineKey": {
+                    "type": "string",
+                    "pattern": "^p[1-9][0-9]*-r[1-9][0-9]*$",
+                    "maxLength": 32
+                  },
+                  "pageNo": {
+                    "type": "integer",
+                    "minimum": 1,
+                    "maximum": 50
+                  },
+                  "itemCode": {
+                    "anyOf": [
+                      {
+                        "type": "string",
+                        "minLength": 1,
+                        "maxLength": 64
+                      },
+                      {
+                        "type": "null"
+                      }
+                    ]
+                  },
+                  "itemName": {
+                    "anyOf": [
+                      {
+                        "type": "string",
+                        "minLength": 1,
+                        "maxLength": 120
+                      },
+                      {
+                        "type": "null"
+                      }
+                    ]
+                  },
+                  "specification": {
+                    "anyOf": [
+                      {
+                        "type": "string",
+                        "minLength": 1,
+                        "maxLength": 120
+                      },
+                      {
+                        "type": "null"
+                      }
+                    ]
+                  },
+                  "unit": {
+                    "anyOf": [
+                      {
+                        "type": "string",
+                        "minLength": 1,
+                        "maxLength": 16
+                      },
+                      {
+                        "type": "null"
+                      }
+                    ]
+                  },
+                  "deliveredQty": {
+                    "anyOf": [
+                      {
+                        "type": "integer",
+                        "minimum": 0,
+                        "maximum": 2147483647
+                      },
+                      {
+                        "type": "null"
+                      }
+                    ]
+                  },
+                  "acceptedQty": {
+                    "anyOf": [
+                      {
+                        "type": "integer",
+                        "minimum": 0,
+                        "maximum": 2147483647
+                      },
+                      {
+                        "type": "null"
+                      }
+                    ]
+                  },
+                  "issues": {
+                    "type": "array",
+                    "items": {
+                      "type": "string",
+                      "minLength": 1,
+                      "maxLength": 64
+                    },
+                    "minItems": 0,
+                    "maxItems": 30
+                  }
+                },
+                "additionalProperties": false
+              },
+              "minItems": 0,
+              "maxItems": 500
+            },
+            "evidence": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "required": [
+                  "lineKey",
+                  "field",
+                  "method",
+                  "rawText",
+                  "value",
+                  "pageNo",
+                  "bbox",
+                  "precision",
+                  "supporting"
+                ],
+                "properties": {
+                  "lineKey": {
+                    "type": "string",
+                    "pattern": "^p[1-9][0-9]*-r[1-9][0-9]*$",
+                    "maxLength": 32
+                  },
+                  "field": {
+                    "enum": [
+                      "itemCode",
+                      "itemName",
+                      "specification",
+                      "unit",
+                      "deliveredQty",
+                      "acceptedQty"
+                    ]
+                  },
+                  "method": {
+                    "enum": [
+                      "PDF_TEXT",
+                      "PADDLE_OCR",
+                      "DOUBAO"
+                    ]
+                  },
+                  "rawText": {
+                    "type": "string",
+                    "minLength": 1,
+                    "maxLength": 1000
+                  },
+                  "value": {
+                    "anyOf": [
+                      {
+                        "type": "string",
+                        "minLength": 1,
+                        "maxLength": 120
+                      },
+                      {
+                        "type": "integer",
+                        "minimum": 0,
+                        "maximum": 2147483647
+                      },
+                      {
+                        "type": "null"
+                      }
+                    ]
+                  },
+                  "pageNo": {
+                    "type": "integer",
+                    "minimum": 1,
+                    "maximum": 50
+                  },
+                  "bbox": {
+                    "anyOf": [
+                      {
+                        "type": "array",
+                        "items": {
+                          "type": "number",
+                          "minimum": 0,
+                          "maximum": 1
+                        },
+                        "minItems": 4,
+                        "maxItems": 4
+                      },
+                      {
+                        "type": "null"
+                      }
+                    ]
+                  },
+                  "precision": {
+                    "enum": [
+                      "REGION",
+                      "PAGE"
+                    ]
+                  },
+                  "supporting": {
+                    "type": "boolean"
+                  }
+                },
+                "additionalProperties": false
+              },
+              "minItems": 0,
+              "maxItems": 6000
+            }
+          },
+          "additionalProperties": false
+        }
+      },
+      "additionalProperties": false
+    }
+  },
+  "oneOf": [
+    {
+      "$ref": "#/$defs/v1"
+    },
+    {
+      "$ref": "#/$defs/v2"
+    }
+  ]
+}

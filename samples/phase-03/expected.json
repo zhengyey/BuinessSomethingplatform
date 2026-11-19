@@ -1,0 +1,266 @@
+{
+  "notes": "truth describes visible source; acceptedQty is null when the accepted evidence is missing or conflicting. For model-eligible pages, network calls depend on configuration and each page has a maximum of one.",
+  "cases": [
+    {
+      "file": "../phase-01/DN-002.pdf",
+      "pages": [
+        {
+          "pageNo": 1,
+          "route": "PDF_TEXT",
+          "ocrCalls": 0,
+          "doubaoCalls": 0,
+          "lines": [
+            [
+              "G-01",
+              "M 码",
+              "箱",
+              5,
+              5
+            ],
+            [
+              "F-02",
+              "10 英寸",
+              "盒",
+              3,
+              3
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "file": "DN-scan.pdf",
+      "pages": [
+        {
+          "pageNo": 1,
+          "route": "PADDLE_OCR",
+          "ocrCalls": 1,
+          "doubaoCalls": 0,
+          "lines": [
+            [
+              "G-01",
+              "M 码",
+              "箱",
+              5,
+              5
+            ],
+            [
+              "F-02",
+              "10 英寸",
+              "盒",
+              3,
+              3
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "file": "DN-rotated.jpg",
+      "pages": [
+        {
+          "pageNo": 1,
+          "route": "PADDLE_OCR",
+          "rotation": 90,
+          "ocrCalls": 1,
+          "doubaoCalls": 0,
+          "lines": [
+            [
+              "G-01",
+              "M 码",
+              "箱",
+              5,
+              5
+            ],
+            [
+              "F-02",
+              "10 英寸",
+              "盒",
+              3,
+              3
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "file": "../phase-01/DN-001.jpg",
+      "pages": [
+        {
+          "pageNo": 1,
+          "route": "PADDLE_OCR",
+          "ocrCalls": 1,
+          "modelEligible": true,
+          "lines": [
+            [
+              "G-01",
+              "M 码",
+              "箱",
+              6,
+              5
+            ]
+          ],
+          "review": "手写实收 5；证据不足时允许留空"
+        }
+      ]
+    },
+    {
+      "file": "DN-delivery-only.pdf",
+      "pages": [
+        {
+          "pageNo": 1,
+          "route": "PDF_TEXT",
+          "ocrCalls": 0,
+          "doubaoCalls": 0,
+          "lines": [
+            [
+              "G-01",
+              "M 码",
+              "箱",
+              6,
+              null
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "file": "DN-zero.pdf",
+      "pages": [
+        {
+          "pageNo": 1,
+          "route": "PDF_TEXT",
+          "ocrCalls": 0,
+          "doubaoCalls": 0,
+          "lines": [
+            [
+              "G-01",
+              "M 码",
+              "箱",
+              6,
+              0
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "file": "DN-conflict.jpg",
+      "pages": [
+        {
+          "pageNo": 1,
+          "route": "PADDLE_OCR",
+          "ocrCalls": 1,
+          "modelEligible": true,
+          "visibleAcceptedOptions": [
+            6,
+            5
+          ],
+          "lines": [
+            [
+              "G-01",
+              "M 码",
+              "箱",
+              6,
+              null
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "file": "DN-overlay.pdf",
+      "pages": [
+        {
+          "pageNo": 1,
+          "route": "PDF_TEXT+PADDLE_OCR",
+          "ocrCalls": 1,
+          "modelEligible": true,
+          "visibleAcceptedOptions": [
+            6,
+            5
+          ],
+          "lines": [
+            [
+              "G-01",
+              "M 码",
+              "箱",
+              6,
+              null
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "file": "DN-mixed.pdf",
+      "pages": [
+        {
+          "pageNo": 1,
+          "route": "PDF_TEXT",
+          "ocrCalls": 0,
+          "doubaoCalls": 0,
+          "lines": [
+            [
+              "G-01",
+              "M 码",
+              "箱",
+              5,
+              5
+            ],
+            [
+              "F-02",
+              "10 英寸",
+              "盒",
+              3,
+              3
+            ]
+          ]
+        },
+        {
+          "pageNo": 2,
+          "route": "PADDLE_OCR",
+          "ocrCalls": 1,
+          "doubaoCalls": 0,
+          "status": "PAGE_FAILED",
+          "lines": []
+        }
+      ]
+    },
+    {
+      "file": "DN-mismatch.pdf",
+      "pages": [
+        {
+          "pageNo": 1,
+          "route": "PDF_TEXT",
+          "ocrCalls": 0,
+          "doubaoCalls": 0,
+          "lines": [
+            [
+              "G-01",
+              "L 码",
+              "盒",
+              2,
+              1
+            ],
+            [
+              "F-O2",
+              "10 英寸",
+              "盒",
+              3,
+              3
+            ]
+          ],
+          "review": "首行规格与单位冲突，第二行 O/0 疑似误读"
+        }
+      ]
+    }
+  ],
+  "lineFields": [
+    "itemCode",
+    "specification",
+    "unit",
+    "deliveredQty",
+    "acceptedQty"
+  ]
+}

@@ -1,0 +1,89 @@
+{
+  "workerId": "fixture-worker",
+  "attemptNo": 1,
+  "parserVersion": "fixture/1",
+  "hints": [],
+  "protocolVersion": 2,
+  "documentId": 1,
+  "pages": [
+    {
+      "pageNo": 1,
+      "status": "EXTRACTED",
+      "text": "送货数量 5；实收数量 0",
+      "hints": [],
+      "width": 595,
+      "height": 420,
+      "rotation": 0,
+      "methods": [
+        "PDF_TEXT"
+      ],
+      "ocrCalls": 0,
+      "doubaoCalls": 0
+    },
+    {
+      "pageNo": 2,
+      "status": "PAGE_FAILED",
+      "text": null,
+      "hints": [
+        "该页无法识别，请手工核对。"
+      ],
+      "width": 595,
+      "height": 420,
+      "rotation": 0,
+      "methods": [
+        "PADDLE_OCR"
+      ],
+      "ocrCalls": 1,
+      "doubaoCalls": 0
+    }
+  ],
+  "delivery": {
+    "lines": [
+      {
+        "lineKey": "p1-r1",
+        "pageNo": 1,
+        "itemCode": "G-01",
+        "itemName": "丁腈手套",
+        "specification": "M 码",
+        "unit": "箱",
+        "deliveredQty": 5,
+        "acceptedQty": 0,
+        "issues": []
+      }
+    ],
+    "evidence": [
+      {
+        "lineKey": "p1-r1",
+        "field": "deliveredQty",
+        "method": "PDF_TEXT",
+        "rawText": "送货数量 5",
+        "value": 5,
+        "pageNo": 1,
+        "bbox": [
+          0.65,
+          0.43,
+          0.7,
+          0.46
+        ],
+        "precision": "REGION",
+        "supporting": true
+      },
+      {
+        "lineKey": "p1-r1",
+        "field": "acceptedQty",
+        "method": "PDF_TEXT",
+        "rawText": "实收数量 0",
+        "value": 0,
+        "pageNo": 1,
+        "bbox": [
+          0.8,
+          0.43,
+          0.84,
+          0.46
+        ],
+        "precision": "REGION",
+        "supporting": true
+      }
+    ]
+  }
+}

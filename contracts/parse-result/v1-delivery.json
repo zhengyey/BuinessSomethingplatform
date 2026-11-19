@@ -1,0 +1,19 @@
+{
+  "workerId": "fixture-worker",
+  "attemptNo": 1,
+  "parserVersion": "fixture/1",
+  "hints": [],
+  "protocolVersion": 1,
+  "pages": [
+    {
+      "pageNo": 1,
+      "status": "NEEDS_OCR",
+      "text": null,
+      "hints": [
+        "签收图片待 OCR"
+      ]
+    }
+  ],
+  "candidate": null,
+  "sources": []
+}

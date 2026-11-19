@@ -1,0 +1,42 @@
+{
+  "workerId": "fixture-worker",
+  "attemptNo": 1,
+  "parserVersion": "fixture/1",
+  "hints": [],
+  "protocolVersion": 1,
+  "pages": [
+    {
+      "pageNo": 1,
+      "status": "TEXT",
+      "text": "采购单号 PO-001",
+      "hints": []
+    }
+  ],
+  "candidate": {
+    "orderNo": "PO-001",
+    "supplierName": "示例实验耗材供应商",
+    "orderedOn": "2026-11-17",
+    "lines": [
+      {
+        "itemCode": "G-01",
+        "itemName": "丁腈手套",
+        "specification": "M 码",
+        "unit": "箱",
+        "orderedQty": 10
+      }
+    ]
+  },
+  "sources": [
+    {
+      "field": "orderNo",
+      "pageNo": 1,
+      "text": "采购单号 PO-001",
+      "bbox": [
+        430,
+        100,
+        555,
+        120
+      ]
+    }
+  ]
+}
