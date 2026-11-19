@@ -10,3 +10,7 @@ web/node_modules/
 web/dist/
 web/playwright-report/
 web/test-results/
+
+# 本地项目实施计划
+/第*阶段详细实施计划-*.md
+/采购到货核对工作台-实施计划.md
